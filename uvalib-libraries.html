@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymer-jsonp/polymer-jsonp.html">
+<link rel="import" href="../core-localstorage/core-localstorage.html">
 
 <!--
 Element providing a listing of libraries at the University of Virginia.
@@ -16,7 +17,8 @@ Element providing a listing of libraries at the University of Virginia.
 <polymer-element name="uvalib-libraries" attributes="library listing fields">
 
   <template>
-    <polymer-jsonp auto url="{{url}}" response="{{rawLibraries}}" on-polymer-response="{{handleResponse}}"></polymer-jsonp>
+    <core-localstorage id="localstore" name="uva-libraries" value="{{listing}}" on-core-localstorage-load="{{handleCachedResponse}}"></core-localstorage>
+    <polymer-jsonp id="jsonp" url="{{url}}" response="{{rawLibraries}}" on-polymer-response="{{handleResponse}}"></polymer-jsonp>
   </template>
 
   <script>
@@ -58,7 +60,40 @@ Element providing a listing of libraries at the University of Virginia.
        * @event libraries-response
        */
       handleResponse: function(){
+        this.parseRawResponse();
         this.fire('libraries-response', {});
+      },
+
+      handleCachedResponse: function(){
+        if (this.listing == null) {
+          console.log("didn't match");
+          this.$.jsonp.go();  // Fetch the data
+        } else {
+          console.log("matched!")
+          this.fire('libraries-response', {});
+        }
+      },
+
+      parseRawResponse: function(){
+        var temp = {};
+        for(var i=0; i<this.rawLibraries.posts.length; i++) {
+          var lib = this.rawLibraries.posts[i];
+          temp[lib.slug] = {
+            name: lib.title,
+            desc: lib.content,
+            thumb: lib.thumbnail,
+            type: lib.taxonomy_library_type[0].slug,
+            phone: lib.additional_info.phone_number,
+            email: lib.additional_info.email_address,
+            feed: lib.additional_info.feed_url,
+            donorTitle: lib.additional_info.donor_title,
+            donorDesc: lib.additional_info.donor_description,
+            hoursCalendar: lib.additional_info.hours_calendar_id,
+            eventsCalendar: lib.additional_info.events_calendar_id,
+            shortTitle: lib.additional_info.short_title
+          }; 
+        }
+        this.listing = temp;
       }
 
     });
