@@ -1,14 +1,14 @@
 {
-  "name": "seed-element",
+  "name": "uvalib-libraries",
   "version": "0.0.0",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Doug Chestnut <dougchestnut@gmail.com>"
   ],
-  "description": "Element providing solution to no problem in particular.",
-  "keywords": "seed, polymer, web-components",
-  "main": "seed-element.html",
+  "description": "Element providing a listing of libraries at the University of Virginia.",
+  "keywords": "uva-library, polymer, web-components",
+  "main": "uva-libraries.html",
   "license": "MIT",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "homepage": "https://github.com/uvalib-components/uvalib-libraries/",
   "ignore": [
     "**/.*"
   ],

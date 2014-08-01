@@ -1,0 +1,46 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+Element providing a listing of libraries at the University of Virginia.
+
+##### Example
+
+    <uvalib-libraries></uvalib-libraries>
+
+@element uvalib-libraries
+@blurb Element providing a listing of libraries at the University of Virginia.
+@status alpha
+@homepage http://uvalib-components.github.io/uvalib-libraries
+-->
+<polymer-element name="uvalib-libraries" attributes="library listing">
+
+  <template>
+    
+  </template>
+
+  <script>
+
+    Polymer('uvalib-libraries', {
+      /**
+       * The optional `library` attribute sets a specific library
+       * 
+       * @attribute library
+       * @type string
+       * @default none
+       */
+      author: null,
+      
+      /**
+       * `listing` is a attribute that returns a listing of libraries.
+       * 
+       * @property listing
+       * @type Array
+       * @default []
+       */
+      fancy: [],
+
+    });
+
+  </script>
+
+</polymer-element>
