@@ -75,10 +75,11 @@ Element providing a listing of libraries at the University of Virginia.
       },
 
       parseRawResponse: function(){
-        var temp = {};
+        var temp = [];
         for(var i=0; i<this.rawLibraries.posts.length; i++) {
           var lib = this.rawLibraries.posts[i];
-          temp[lib.slug] = {
+          temp.push({
+            id: lib.slug,
             name: lib.title,
             desc: lib.content,
             thumb: lib.thumbnail,
@@ -91,7 +92,7 @@ Element providing a listing of libraries at the University of Virginia.
             hoursCalendar: lib.additional_info.hours_calendar_id,
             eventsCalendar: lib.additional_info.events_calendar_id,
             shortTitle: lib.additional_info.short_title
-          }; 
+          }); 
         }
         this.listing = temp;
       }

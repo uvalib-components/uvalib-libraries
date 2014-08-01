@@ -16,6 +16,7 @@
     "polymer": "Polymer/polymer#~0.3.3",
     "polymer-test-tools": "Polymer/polymer-test-tools#~0.3.3",
     "polymer-jsonp": "Polymer/polymer-jsonp#~0.3.0",
-    "core-localstorage": "Polymer/core-localstorage#~0.3.4"
+    "core-localstorage": "Polymer/core-localstorage#~0.3.4",
+    "core-list": "Polymer/core-list#~0.3.4"
   }
 }
