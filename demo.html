@@ -8,14 +8,7 @@
   <link rel="import" href="uvalib-libraries.html">
   <link rel="import" href="../core-list/core-list.html">
 
-</head>
-<body unresolved>
-
-	<libraries-demo></libraries-demo>
-
-<polymer-element name="libraries-demo" noscript>
-	<template>
-		<style>
+<style>
 core-list {
       height: 100%;
     }
@@ -56,23 +49,25 @@ core-list {
     .body {
       font-size: 12px;
     }
+</style>
+</head>
+<body unresolved>
 
-		</style>
-  		<uvalib-libraries listing="{{listing}}"></uvalib-libraries>
-  		<core-list id="list" data="{{listing}}" height="80">
-  			<template>
-  				<div class="item {{ {selected: selected} | tokenList }}">
-        			<div class="library" style="background-image: url({{thumb}});">
-          				<span class="name">{{name}}</span>
-          				<span class="type">{{type}}</span>
-          				<div class="phone">{{phone}}</div>
-          				<div class="body">{{desc}}</div>
-        			</div>
-      			</div>
-  			</template>
-  		</core-list>
-  	</template>
-</polymer-element>
+  <template is="auto-binding">
+      <uvalib-libraries listing="{{listing}}"></uvalib-libraries>
+      <core-list id="list" data="{{listing}}" height="80">
+        <template>
+          <div class="item {{ {selected: selected} | tokenList }}">
+              <div class="library" style="background-image: url({{thumb}});">
+                  <span class="name">{{name}}</span>
+                  <span class="type">{{type}}</span>
+                  <div class="phone">{{phone}}</div>
+                  <div class="body">{{desc}}</div>
+              </div>
+            </div>
+        </template>
+      </core-list>
+  </template>
 
 </body>
 </html>
