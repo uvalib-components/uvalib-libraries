@@ -80,26 +80,28 @@ Element providing a listing of libraries at the University of Virginia.
 
       parseRawResponse: function(){
         var temp = [];
-        for(var i=0; i<this.rawLibraries.posts.length; i++) {
-          var lib = this.rawLibraries.posts[i],
-              libs = (this.library)? this.library.split(' '): [];
-          if(!this.library || this.arrayContains(lib.slug, libs) ) {
-            temp.push({
-              id: lib.slug,
-              name: lib.title,
-              desc: lib.content,
-              thumb: lib.thumbnail,
-              type: lib.taxonomy_library_type[0].slug,
-              phone: lib.additional_info.phone_number,
-              email: lib.additional_info.email_address,
-              feed: lib.additional_info.feed_url,
-              donorTitle: lib.additional_info.donor_title,
-              donorDesc: lib.additional_info.donor_description,
-              hoursCalendar: lib.additional_info.hours_calendar_id,
-              eventsCalendar: lib.additional_info.events_calendar_id,
-              shortTitle: lib.additional_info.short_title
-            });
-          } 
+        if (this.rawLibraries) {
+          for(var i=0; i<this.rawLibraries.posts.length; i++) {
+            var lib = this.rawLibraries.posts[i],
+                libs = (this.library)? this.library.split(' '): [];
+            if(!this.library || this.arrayContains(lib.slug, libs) ) {
+              temp.push({
+                id: lib.slug,
+                name: lib.title,
+                desc: lib.content,
+                thumb: lib.thumbnail,
+                type: lib.taxonomy_library_type[0].slug,
+                phone: lib.additional_info.phone_number,
+                email: lib.additional_info.email_address,
+                feed: lib.additional_info.feed_url,
+                donorTitle: lib.additional_info.donor_title,
+                donorDesc: lib.additional_info.donor_description,
+                hoursCalendar: lib.additional_info.hours_calendar_id,
+                eventsCalendar: lib.additional_info.events_calendar_id,
+                shortTitle: lib.additional_info.short_title
+              });
+            } 
+          }
         }
         this.listing = temp;
       },
