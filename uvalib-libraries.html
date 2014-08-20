@@ -29,9 +29,9 @@ Element providing a listing of libraries at the University of Virginia.
        * 
        * @attribute library
        * @type string
-       * @default null (get all libraries)
+       * @default "" (get all libraries)
        */
-      library: null,
+      library: "",
 
       /**
        * The optional `fields` attribute sets a specific set of fields to return the the libraries
@@ -74,8 +74,10 @@ Element providing a listing of libraries at the University of Virginia.
         }
       },
 
-      libraryChanged: function(){
-        this.parseRawResponse();
+      ready: function(){
+        this.libraryChanged = function(){
+//          this.parseRawResponse();
+        }
       },
 
       parseRawResponse: function(){
@@ -102,8 +104,8 @@ Element providing a listing of libraries at the University of Virginia.
               });
             } 
           }
+          this.listing = temp;
         }
-        this.listing = temp;
       },
 
       arrayContains: function(needle, arrhaystack){
