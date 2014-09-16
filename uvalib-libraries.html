@@ -17,8 +17,8 @@ Element providing a listing of libraries at the University of Virginia.
 <polymer-element name="uvalib-libraries" attributes="library listing fields">
 
   <template>
-    <core-localstorage id="localstore" name="uva-libraries" value="{{listing}}" on-core-localstorage-load="{{handleCachedResponse}}"></core-localstorage>
-    <polymer-jsonp auto id="jsonp" url="{{url}}" response="{{rawLibraries}}" on-polymer-response="{{handleResponse}}"></polymer-jsonp>
+    <core-localstorage id="localstore" name="uva-libraries-{{library}}" value="{{listing}}" on-core-localstorage-load="{{handleCachedResponse}}"></core-localstorage>
+    <polymer-jsonp id="jsonp" url="{{url}}" response="{{rawLibraries}}" on-polymer-response="{{handleResponse}}"></polymer-jsonp>
   </template>
 
   <script>
@@ -65,7 +65,7 @@ Element providing a listing of libraries at the University of Virginia.
       },
 
       handleCachedResponse: function(){
-        if (this.listing == null) {
+        if (this.listing.length == 0) {
           console.log("didn't match");
           this.$.jsonp.go();  // Fetch the data
         } else {

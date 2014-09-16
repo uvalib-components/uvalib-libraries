@@ -54,14 +54,14 @@ core-list {
 <body unresolved>
 
   <template is="auto-binding">
-      <uvalib-libraries listing="{{listing}}"></uvalib-libraries>
+      <uvalib-libraries auto listing="{{listing}}"></uvalib-libraries>
       <core-list id="list" data="{{listing}}" height="80">
         <template>
           <div class="item {{ {selected: selected} | tokenList }}">
               <div class="library" style="background-image: url({{thumb}});">
                   <span class="name">{{name}}</span>
                   <span class="type">{{type}}</span>
-                  <div class="phone">{{phone}}</div>
+                  <div class="phone">{{hoursCalendar}}</div>
                   <div class="body">{{desc}}</div>
               </div>
             </div>
