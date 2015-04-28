@@ -1,73 +1,19 @@
 <!doctype html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>uvalib-libraries Demo</title>
-
-  <script src="../platform/platform.js"></script>
-  <link rel="import" href="uvalib-libraries.html">
-  <link rel="import" href="../core-list/core-list.html">
-
-<style>
-core-list {
-      height: 100%;
-    }
-
-    .item {
-      box-sizing: border-box;
-      height: 80px;
-      border-bottom: 1px solid #ddd;
-      padding: 4px;
-      cursor: default;
-      background-color: white;
-      overflow: hidden;
-    }
-
-    .selected {
-      background: silver;
-    }
-
-    .library {
-      padding-left: 77px;
-      line-height: 167%;
-      background-repeat: no-repeat;
-      background-position: 10px 10px;
-      background-size: 60px;
-    }
-    
-    .name {
-      display: inline;
-      font-weight: bold;
-    }
-    
-    .type {
-      margin-left: 10px;
-      font-size: 12px;
-      opacity: 0.8;
-    }
-    
-    .body {
-      font-size: 12px;
-    }
-</style>
-</head>
-<body unresolved>
-
-  <template is="auto-binding">
-      <uvalib-libraries auto listing="{{listing}}"></uvalib-libraries>
-      <core-list id="list" data="{{listing}}" height="80">
-        <template>
-          <div class="item {{ {selected: selected} | tokenList }}">
-              <div class="library" style="background-image: url({{thumb}});">
-                  <span class="name">{{name}}</span>
-                  <span class="type">{{type}}</span>
-                  <div class="phone">{{hoursCalendar}}</div>
-                  <div class="body">{{desc}}</div>
-              </div>
-            </div>
-        </template>
-      </core-list>
-  </template>
-
-</body>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>uvalib-libraries Demo</title>
+    <script src="../webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="uvalib-libraries.html">
+  </head>
+  <body unresolved>
+    <template is="auto-binding">
+      <p>An `uvalib-libraries` looks like this:</p> 
+      <uvalib-libraries auto libraries={{libraries}}></uvalib-libraries>
+      <template repeat="{{libraries}}">
+        <h2>{{title}}</h2>
+      </template>
+    </template>
+  </body>
 </html>

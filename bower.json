@@ -1,22 +1,16 @@
 {
   "name": "uvalib-libraries",
   "version": "0.0.0",
-  "authors": [
-    "Doug Chestnut <dougchestnut@gmail.com>"
+  "keywords": [
+    "seed",
+    "polymer",
+    "web-components"
   ],
-  "description": "Element providing a listing of libraries at the University of Virginia.",
-  "keywords": "uva-library, polymer, web-components",
-  "main": "uva-libraries.html",
-  "license": "MIT",
-  "homepage": "https://github.com/uvalib-components/uvalib-libraries/",
-  "ignore": [
-    "**/.*"
-  ],
+  "main": "uvalib-libraries.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.3.3",
-    "polymer-test-tools": "Polymer/polymer-test-tools#~0.3.3",
-    "polymer-jsonp": "Polymer/polymer-jsonp#~0.3.0",
-    "core-localstorage": "Polymer/core-localstorage#~0.3.4",
-    "core-list": "Polymer/core-list#~0.3.4"
+    "polymer": "Polymer/polymer#^0.5.4"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^2.2.3"
   }
 }

@@ -1,119 +1,122 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../polymer-jsonp/polymer-jsonp.html">
-<link rel="import" href="../core-localstorage/core-localstorage.html">
+<link rel="import" href="../uvalib-api/uvalib-api.html">
 
 <!--
-Element providing a listing of libraries at the University of Virginia.
+Element providing an easy component access to the uva Library's branches and units.
 
 ##### Example
 
     <uvalib-libraries></uvalib-libraries>
 
 @element uvalib-libraries
-@blurb Element providing a listing of libraries at the University of Virginia.
+@blurb lement providing an easy component access to the uva Library's branches and units.
 @status alpha
 @homepage http://uvalib-components.github.io/uvalib-libraries
 -->
-<polymer-element name="uvalib-libraries" attributes="library listing fields">
-
+<polymer-element name="uvalib-libraries" attributes="auto libraries library">
   <template>
-    <core-localstorage id="localstore" name="uva-libraries-{{library}}" value="{{listing}}" on-core-localstorage-load="{{handleCachedResponse}}"></core-localstorage>
-    <polymer-jsonp id="jsonp" url="{{url}}" response="{{rawLibraries}}" on-polymer-response="{{handleResponse}}"></polymer-jsonp>
+    <uvalib-api on-uvalib-api-load="{{apiLoaded}}"></uvalib-api>
   </template>
-
   <script>
+    Polymer({
 
-    Polymer('uvalib-libraries', {
+      observe: {
+        auto: 'fetch',
+        library: 'fetch'
+      },
+
       /**
-       * The optional `library` attribute sets a specific library
-       * 
+       * The `auto` attribute set to true means that the libraries will be queried 
+       * whenever a request attribute is changed.
+       *
+       * @attribute auto
+       * @type bool
+       * @default false
+       */
+      auto: false,
+
+      /**
+       * The `libraries` attribute is set with the results for a libraries request
+       *
+       * @attribute libraries
+       * @type array
+       * @default null
+       */
+      libraries: null,
+
+      /**
+       * The `library` attribute specifies the library to return a listing for
+       *
        * @attribute library
        * @type string
-       * @default "" (get all libraries)
-       */
-      library: "",
+       * @default null
+       */ 
+      library: null,
 
       /**
-       * The optional `fields` attribute sets a specific set of fields to return the the libraries
-       * 
-       * @attribute fields
-       * @type string (space seperated)
-       * @default ""
-       */
-      fields: "",
-      
-      /**
-       * `listing` is a attribute that returns a listing of libraries.
-       * 
-       * @attribute listing
-       * @type Array
-       * @default []
-       */
-      listing: [],
-
-      url: "http://www.library.virginia.edu/api/get_recent_posts?count=0&post_type=uvalib_library&callback=",
-
-
-      /**
-       * Fired when a the libraries info has been fetched.
+       * The `api` property is set to the Library's client catalog api once loaded
        *
-       * @event libraries-response
+       * @attribute api
+       * @type object
+       * @default null
        */
-      handleResponse: function(){
-        this.parseRawResponse();
-        this.fire('libraries-response', {});
+      api: null,
+
+      apiLoaded: function (e) {
+        this.api = e.detail.library;
+        if (this.auto)
+          this.fetch();
       },
 
-      handleCachedResponse: function(){
-        if (this.listing.length == 0) {
-          console.log("didn't match");
-          this.$.jsonp.go();  // Fetch the data
+      // Keep track of requests so that older ones can be ignored
+      // ToDo: see if we can cancel api requests before they return
+      requests:[],
+
+      /**
+       * The `fetch` method will make a query request against the catalog.
+       *
+       * @method fetch
+       */
+      fetch: function () {
+        if (this.api) {
+
+          // Cancel all requests currently running
+          for (var i=0; i<this.requests.length; i++)
+            this.requests[i].cancel=true;
+
+          var req_pack = {};
+
+          // Put a simple message into the requests queue for this request
+          var mess = {cancel:false};
+          this.requests.push(mess);
+
+          this.api.list(req_pack).execute( this.parseResults.bind(this, mess) );
+          console.log('fetching library results!');
+        }
+      },
+
+      /**
+       * The `uvalib-libraries-fetched-results` event is fired whenever we
+       * call fetch and process the results.
+       *
+       * @event uvalib-libraries-fetched-results
+       */
+      parseResults: function(mess, results){
+        if (!mess.cancel) {
+          this.libraries = results.libraries;          
+          this.fire('uvalib-libraries-fetched-results');
         } else {
-          console.log("matched!")
-          this.fire('libraries-response', {});
+          console.log('fetch canceled!');
         }
-      },
 
-      ready: function(){
-        this.libraryChanged = function(){
-//          this.parseRawResponse();
-        }
-      },
-
-      parseRawResponse: function(){
-        var temp = [];
-        if (this.rawLibraries) {
-          for(var i=0; i<this.rawLibraries.posts.length; i++) {
-            var lib = this.rawLibraries.posts[i],
-                libs = (this.library)? this.library.split(' '): [];
-            if(!this.library || this.arrayContains(lib.slug, libs) ) {
-              temp.push({
-                id: lib.slug,
-                name: lib.title,
-                desc: lib.content,
-                thumb: lib.thumbnail,
-                type: lib.taxonomy_library_type[0].slug,
-                phone: lib.additional_info.phone_number,
-                email: lib.additional_info.email_address,
-                feed: lib.additional_info.feed_url,
-                donorTitle: lib.additional_info.donor_title,
-                donorDesc: lib.additional_info.donor_description,
-                hoursCalendar: lib.additional_info.hours_calendar_id,
-                eventsCalendar: lib.additional_info.events_calendar_id,
-                shortTitle: lib.additional_info.short_title
-              });
-            } 
+        // remove this requests message from the queue
+        for (var i=0; i<this.requests.length; i++)
+          if (mess == this.requests[i]) {
+            this.requests.splice(i,1);
+            break;
           }
-          this.listing = temp;
-        }
-      },
-
-      arrayContains: function(needle, arrhaystack){
-        return (arrhaystack.indexOf(needle) > -1);
       }
-
+      
     });
-
   </script>
-
 </polymer-element>
