@@ -1,0 +1,34 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`uvalib-libraries`
+non-ui component that binds to the Library objects (Listing of the UVa Libraries and meta)
+
+@demo demo/index.html 
+-->
+
+<dom-module id="uvalib-libraries">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]</h2>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-libraries',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'uvalib-libraries',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
