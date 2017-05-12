@@ -1,14 +1,43 @@
 {
   "name": "uvalib-libraries",
-  "description": "non-ui component that binds to the Library objects (Listing of the UVa Libraries and meta)",
+  "description": "UI component to display library or lab content",
   "main": "uvalib-libraries.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0"
+    "polymer": "Polymer/polymer#^1.4.0",
+    "uvalib-elements": "uvalib-components/uvalib-elements#^0.0.3"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "resolutions": {
+    "uvalib-elements": "^0.0.3",
+    "web-component-tester": "^5.0.0",
+    "iron-icons": "^1.2.1",
+    "polymer": "^1.7.1",
+    "uvalib-alerts": "master",
+    "uvalib-events-card": "master",
+    "uvalib-analytics": "master",
+    "uvalib-banner": "master",
+    "uvalib-button": "master",
+    "uvalib-helper-libs": "master",
+    "uvalib-card": "master",
+    "uvalib-footer": "master",
+    "uvalib-header": "master",
+    "uvalib-hours-card": "master",
+    "uvalib-liame": "master",
+    "uvalib-models": "master",
+    "uvalib-logos": "master",
+    "uvalib-nav": "master",
+    "uvalib-news-section": "master",
+    "uvalib-skip-nav": "master",
+    "uvalib-search-box": "master",
+    "uvalib-social-links": "master",
+    "uvalib-theme": "master",
+    "lodash": "^4.17.4",
+    "mocha": "^3.1.2",
+    "app-storage": "^0.10.0"
   }
 }

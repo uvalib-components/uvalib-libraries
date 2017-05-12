@@ -1,8 +1,10 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-liame/uvalib-liame.html">
 
 <!--
 `uvalib-libraries`
-non-ui component that binds to the Library objects (Listing of the UVa Libraries and meta)
+ui component that represents a library location
 
 @demo demo/index.html 
 -->
@@ -14,12 +16,44 @@ non-ui component that binds to the Library objects (Listing of the UVa Libraries
         display: block;
       }
     </style>
-    <h2>Hello [[prop1]]</h2>
+    <section id="">
+      <span class="donor-title donor-description" data-content="" data-original-title=""></span>
+      <h2 class="title"></h2>
+      <div class="info">
+        <div class="description">
+          <div class="picture"><img width="" height="" src="" alt="" class=""></div>
+          <p></p>
+        </div>
+        <a href="" class="map">
+          <img class="map-icon" src="" alt="View map for ">
+          <p class="map-description">Map & Directions</p>
+        </a>
+        <div class="vitals">
+          <div class="vitals-section">
+            <h4>Hours</h4>
+            <span class="status"></span>
+            <span class="schedule"><a href=""></a></span>
+          </div>
+          <div class="vitals-section">
+            <h4>Contact</h4>
+            <span class="phone">Phone:&nbsp;&nbsp;</span>
+            <span class="contact"><uvalib-liame rid="">Contact Us</uvalib-liame></span>
+            <span class="contact social-link"><a class="twitter-link" href="">Twitter</a></span>
+            <span class="contact social-link"><a class="facebook-link" href="">Facebook</a></span>
+          </div>
+        </div>
+      </div>
+    </section>
   </template>
 
   <script>
     Polymer({
-
+// ToDo add imports for uvalib-liame, uvalib-icons or uva-icons
+// ToDo is there a social link representation elsewhere (e.g. footer) that we want to reuse everywhere?
+// ToDo how is the tooltip implemented for the donor information? will that work within this component?
+// ToDo implement icons for map, social media
+// ToDo add uvalib-model implementation with firebase unless the model component handles that
+// ToDo apply layout CSS to component but not any styling
       is: 'uvalib-libraries',
 
       properties: {
