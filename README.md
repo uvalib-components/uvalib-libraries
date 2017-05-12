@@ -1,6 +1,6 @@
 # \<uvalib-libraries\>
 
-non-ui component that binds to the Library objects (Listing of the UVa Libraries and meta)
+ui component to display library or lab content
 
 ## Install the Polymer-CLI
 
