@@ -131,7 +131,7 @@ ui component that represents a library location
     <template is="dom-repeat" items="{{data}}" as="lib">
       <uvalib-model-library uuid="{{lib.uuid}}"
           name="{{libName}}" description="{{info}}" donor-name="{{donorName}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
-          rid="{{rid}}" phone="{{phone}}" social-media="{{socialMedia}}" slug="{{slug}}" >
+          rid="{{rid}}" phone="{{phone}}" social-media="{{socialMedia}}" slug="{{slug}}" libcal-id="{{libcalId}}">
       </uvalib-model-library>
 
       <section id$="{{lib.uuid}}" class="library">
@@ -151,7 +151,7 @@ ui component that represents a library location
           <div class="library-vitals">
             <div class="vitals-section">
               <h4>Hours</h4>
-              <uvalib-model-days lid="{{lib.libcalId}}" today="true" data="{{days}}"></uvalib-model-days>
+              <uvalib-model-days lid="[[libcalId]]" today="true" data="{{days}}"></uvalib-model-days>
               <template is="dom-repeat" items="[[days]]" as="today">
                 <span class="schedule vital status">[[today.currentStatus]]</span>
                 <span class="schedule vital"><a href="https://www.library.virginia.edu/hours/#[[slug]]">[[today.rendered]]</a></span>
