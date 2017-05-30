@@ -1,8 +1,12 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
 <link rel="import" href="../uvalib-models/uvalib-model-libraries.html">
 <link rel="import" href="../uvalib-models/uvalib-model-library.html">
+<link rel="import" href="../uvalib-models/uvalib-model-days.html">
+<link rel="import" href="../uvalib-social-links/uvalib-social-links.html">
 
 <!--
 `uvalib-libraries`
@@ -17,53 +21,199 @@ ui component that represents a library location
       :host {
         display: block;
       }
+      .donor-title {
+        clear: both;
+        display: block;
+        float: left;
+        text-transform: uppercase;
+      }
+      .donor-title.donor-description {
+        border-bottom: 1px dotted #bbb;
+        cursor: help;
+        margin-bottom: 0.5em;
+      }
+      h2.library-title {
+        clear: both;
+      }
+      .library-info .library-picture {
+        float: left;
+        overflow: hidden;
+        width: 148px;
+      }
+      .library-info .library-picture img {
+        margin-right: 1.33em;
+      }
+      .library-picture img {
+        background: #fff none repeat scroll 0 0;
+        border: 1px solid #bbb;
+        border-radius: 3px;
+        box-shadow: 0 1px 4px rgba(44, 44, 44, 0.2);
+        float: left;
+        margin-bottom: 0.5em;
+        padding: 4px;
+      }
+      .library-description {
+        float: left;
+        margin-bottom: 1em;
+        overflow: hidden;
+        width: 81%;
+      }
+      .library-description p {
+        float: none;
+        margin-bottom: 1em;
+      }
+      a.library-map: {
+        cursor: pointer;
+      }
+      .library-map {
+        display: block;
+        float: right;
+        margin-left: 1%;
+        padding: 1%;
+        text-decoration: none;
+        width: 15%;
+      }
+      .library-map .map-description {
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+      }
+      /* not sure this is working */
+      .library-map p {
+        border: 0 none;
+        margin: 0;
+        padding: 0;
+      }
+      .library-map paper-icon-button {
+        display: block;
+        margin: 0 auto 0.5em;
+      }
+      paper-icon-button {
+        height:100%;
+        width:100%;
+        color: var(--globecolor,#B3D996);
+        border: 0 none;
+      }
+      .library-vitals {
+        border-bottom: 1px dotted #cdd1d9;
+        background: #e9edf5 none repeat scroll 0 0;
+        border-top: 1px solid #cdd1d9;
+        clear: both;
+        margin: 1em 0 0;
+        padding: 0.67em 1em;
+      }
+      .vitals-section {
+        overflow: hidden;
+        padding: 0.33em 0;
+      }
+      .library-vitals .vitals-section h4 {
+        float: left;
+        padding-right: 2em;
+        text-transform: uppercase;
+        width: 6em;
+      }
+      .vital {
+        padding-right: 1.5em;
+      }
+      .library-vitals .vital.social-link {
+        display: inline-block;
+        padding-right: 1em;
+      }
     </style>
-    <section id="">
-      <span class="donor-title donor-description" data-content="" data-original-title=""></span>
-      <h2 class="title"></h2>
-      <div class="info">
-        <div class="description">
-          <div class="picture"><img width="" height="" src="" alt="" class=""></div>
-          <p></p>
-        </div>
-        <a href="" class="map">
-          <img class="map-icon" src="" alt="View map for ">
-          <p class="map-description">Map & Directions</p>
-        </a>
-        <div class="vitals">
-          <div class="vitals-section">
-            <h4>Hours</h4>
-            <span class="status"></span>
-            <span class="schedule"><a href=""></a></span>
+
+    <template is="dom-if" if="{{uuid}}" restamp>
+      <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"/>
+    </template>
+    <template is="dom-if" if="{{library}}" restamp>
+      <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"/>
+    </template>
+
+    <template is="dom-repeat" items="{{data}}" as="lib">
+      <uvalib-model-library uuid="{{lib.uuid}}"
+          name="{{libName}}" description="{{info}}" donor-name="{{donorName}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
+          rid="{{rid}}" phone="{{phone}}" social-media="{{socialMedia}}" slug="{{slug}}" >
+      </uvalib-model-library>
+
+      <section id$="{{lib.uuid}}" class="library">
+        <span class="donor-title donor-description" data-content="[[donorInfo]]" data-original-title="[[donorTitle]]">[[donorName]]</span>
+        <h2 class="library-title">[[libName]]</h2>
+        <div class="library-info">
+          <div class="library-description">
+            <div class="library-picture">
+              <img class="attachment-120x120 wp-post-image" src="https://static.lib.virginia.edu/directory/media/fiskekimball_thumb.jpg" alt="Fine Arts Library" width="120" height="120">
+            </div>
+            <p inner-h-t-m-l="[[info]]"></p>
           </div>
-          <div class="vitals-section">
-            <h4>Contact</h4>
-            <span class="phone">Phone:&nbsp;&nbsp;</span>
-            <span class="contact"><uvalib-liame rid="">Contact Us</uvalib-liame></span>
-            <span class="contact social-link"><a class="twitter-link" href="">Twitter</a></span>
-            <span class="contact social-link"><a class="facebook-link" href="">Facebook</a></span>
+          <a href$="http://www.library.virginia.edu/map/#!/study/[[slug]]" class="library-map">
+            <paper-icon-button icon="globe" alt$="View map for [[libName]]"></paper-icon-button>
+            <p class="map-description">Map & Directions</p>
+          </a>
+          <div class="library-vitals">
+            <div class="vitals-section">
+              <h4>Hours</h4>
+              <uvalib-model-days lid="{{lib.libcalId}}" today="true" data="{{days}}"></uvalib-model-days>
+              <template is="dom-repeat" items="[[days]]" as="today">
+                <span class="schedule vital status">[[today.currentStatus]]</span>
+                <span class="schedule vital"><a href="https://www.library.virginia.edu/hours/#[[slug]]">[[today.rendered]]</a></span>
+              </template>
+            </div>
+            <div class="vitals-section">
+              <h4>Contact</h4>
+              <span class="phone vital">Phone:&nbsp;&nbsp;[[phone]]</span>
+              <span class="contact vital">Email:&nbsp;&nbsp;<uvalib-liame rid="[[rid]]"></uvalib-liame></span>
+              <template is="dom-repeat" items="[[socialMedia]]" as="social">
+                <span class="vital social-link">
+                  <uvalib-social-link href$="[[social.uri]]" alt$="[[libName]] [[social.title]]" style="color: darkblue; height:40px; width:40px"></uvalib-social-link>
+                </span>
+              </template>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+    </template>
   </template>
 
   <script>
     Polymer({
-// ToDo add imports for uvalib-liame, uvalib-icons or uva-icons
 // ToDo is there a social link representation elsewhere (e.g. footer) that we want to reuse everywhere?
 // ToDo how is the tooltip implemented for the donor information? will that work within this component?
 // ToDo implement icons for map, social media
-// ToDo add uvalib-model implementation with firebase unless the model component handles that
 // ToDo apply layout CSS to component but not any styling
       is: 'uvalib-libraries',
 
       properties: {
-        prop1: {
+        /**
+         * The uuid of the Library.  If specified will define which Library is being requested (takes priority over the library property)
+         */
+        uuid: {
           type: String,
-          value: 'uvalib-libraries',
+          value: null
+        },
+        /**
+         * The library that is being requested.  If the uuid property is not specified and the library property is, then this is used to define which Library is being requested.
+         */
+        library: {
+          value: null,
+          type: String,
+        },
+        data: {
+          value: null,
+          type: Array
+        },
+        _filter: {
+          type: Object,
+          computed: '_makeFilter(uuid,library)'
         },
       },
+
+      _makeFilter: function(uuid,title) {
+        if (uuid) {
+          return {uuid: uuid};
+        } else if (title) {
+          return {title: title};
+        } else return {};
+      }
 
     });
   </script>
