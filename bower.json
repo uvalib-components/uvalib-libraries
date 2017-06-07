@@ -5,7 +5,9 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
     "uvalib-elements": "uvalib-components/uvalib-elements#^0.0.3",
-    "uvalib-social-links": "uvalib-components/uvalib-social-links#^0.0.1"
+    "uvalib-social-links": "uvalib-components/uvalib-social-links#^0.0.1",
+    "paper-tooltip": "PolymerElements/paper-tooltip#^2.0.0",
+    "uvalib-images": "uvalib-components/uvalib-images"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
@@ -15,7 +17,7 @@
   },
   "resolutions": {
     "uvalib-elements": "master",
-    "web-component-tester": "^4.0.0",
+    "web-component-tester": "^5.0.0",
     "iron-icons": "^1.2.1",
     "polymer": "^1.7.1",
     "uvalib-alerts": "master",
@@ -39,6 +41,9 @@
     "uvalib-theme": "master",
     "lodash": "^4.17.4",
     "mocha": "^3.1.2",
-    "app-storage": "^0.10.0"
+    "app-storage": "^0.10.0",
+    "paper-tooltip": "^1.0.0",
+    "uvalib-images": "master",
+    "webcomponentsjs": "^0.7.0"
   }
 }
