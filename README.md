@@ -1,4 +1,6 @@
 # \<uvalib-libraries\>
+[![Build Status](https://travis-ci.org/uvalib-components/uvalib-libraries.svg?branch=master)](https://travis-ci.org/uvalib-components/uvalib-libraries)
+
 
 ui component to display library or lab content
 
