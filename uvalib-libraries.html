@@ -1,7 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-tooltip/paper-tooltip.html">
-<link rel="import" href="../uvalib-theme/uvalib-theme.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
 <link rel="import" href="../uvalib-liame/uvalib-liame.html">
 <link rel="import" href="../uvalib-images/uvalib-image.html">
@@ -183,17 +182,21 @@ ui component that represents a library location
     <template is="dom-if" if="{{library}}" restamp>
       <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"/>
     </template>
+    <template is="dom-if" if="{{_dataPassed(uuid,library)}}" restamp>
+      <uvalib-model-libraries data="{{data}}"/>
+    </template>
 
-    <template is="dom-repeat" items="{{data}}" as="lib">
-      <uvalib-model-library uuid="{{lib.uuid}}"
+
+    <template is="dom-repeat" items="{{data}}" as="library">
+      <uvalib-model-library object="[[library]]"
           name="{{libName}}" description="{{info}}" donor-name="{{donorName}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
           rid="{{rid}}" phone="{{phone}}" social-media="{{socialMedia}}" slug="{{slug}}" libcal-id="{{libcalId}}" img-id="{{imgId}}" img-alt="{{imgAlt}}">
       </uvalib-model-library>
       <uvalib-model-days lid="[[libcalId]]" today="true" data="{{days}}"></uvalib-model-days>
 
-      <section id$="lib[[lib.uuid]]" class="library item">
-        <span id$="donor[[lib.uuid]]" class="donor-title donor-description">[[donorName]]</span>
-        <template is="dom-if" if="[[donorInfo]]"><paper-tooltip for$="donor[[lib.uuid]]" offset="1" position="right"><div inner-h-t-m-l="<h2>[[donorTitle]]</h2>[[donorInfo]]"></div></paper-tooltip></template>
+      <section id$="lib[[library.uuid]]" class="library item">
+        <span id$="donor[[library.uuid]]" class="donor-title donor-description">[[donorName]]</span>
+        <template is="dom-if" if="[[donorInfo]]"><paper-tooltip for$="donor[[library.uuid]]" offset="1" position="right"><div inner-h-t-m-l="<h2>[[donorTitle]]</h2>[[donorInfo]]"></div></paper-tooltip></template>
         <h2 class="library-title item-title">[[libName]]</h2>
         <div class="library-info clearfix">
           <div class="library-description item-description">
@@ -252,14 +255,33 @@ ui component that represents a library location
           value: null,
           type: String,
         },
+        /**
+         * Data parsed to generate one or more library/lab content types.
+         */
         data: {
           value: null,
-          type: Array
+          type: Array,
         },
         _filter: {
           type: Object,
           computed: '_makeFilter(uuid,library)'
         },
+      },
+
+      observers: [
+        '_showLog(data)'
+      ],
+
+      _showLog: function(data) {
+        console.log(data);
+      },
+
+      _dataPassed: function(uuid,library) {
+        if (!uuid && !library) {
+          return 1;
+        } else {
+          return 0;
+        }
       },
 
       _makeFilter: function(uuid,title) {

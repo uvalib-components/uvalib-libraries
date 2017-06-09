@@ -9,7 +9,7 @@
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
-    <link rel="import" href="../../uvalib-models/uvalib-model-libraries.html">
+    <link rel="import" href="../../uvalib-theme/uvalib-theme.html">
     <link rel="import" href="../uvalib-libraries.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
@@ -18,11 +18,10 @@
   <body>
 
     <div class="vertical-section-container">
-      <h3>Basic uvalib-libraries Demo</h3>
+      <h3>Basic uvalib-libraries name Demo</h3>
       <demo-snippet>
         <template>
-          <uvalib-model-libraries data="{{data}}"></uvalib-model-libraries>
-          <uvalib-libraries data="{{data}}"></uvalib-libraries>
+          <uvalib-libraries library="Alderman Library"></uvalib-libraries>
         </template>
       </demo-snippet>
     </div>
@@ -37,10 +36,11 @@
     </div>
 
     <div class="vertical-section-container">
-      <h3>Basic uvalib-libraries name Demo</h3>
+      <h3>Basic uvalib-libraries Demo</h3>
       <demo-snippet>
         <template>
-          <uvalib-libraries library="Alderman Library"></uvalib-libraries>
+          <uvalib-model-libraries id="list" data="{{libraries}}"></uvalib-model-libraries>
+          <uvalib-libraries id="libraries" data="[[libraries]]"></uvalib-libraries>
         </template>
       </demo-snippet>
     </div>
