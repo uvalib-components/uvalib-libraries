@@ -275,27 +275,19 @@ ui component that represents a library location
         },
       },
 
-      observers: [
+/*      observers: [
         '_showLog(data)'
       ],
       _showLog: function(data) {
         console.log(data);
       },
-
+*/
       _dataPassed: function(uuid,library) {
         if (!uuid && !library) {
           return 1;
         } else {
           return 0;
         }
-      },
-
-      _displayHoursInfo: function(libcalId,hoursInfo) {
-        if (libcalId) {
-          return 0;
-        } else if (hoursInfo) {
-          return 1;
-        } else return 0;
       },
 
       _makeFilter: function(uuid,title) {
