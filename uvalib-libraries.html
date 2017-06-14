@@ -13,7 +13,7 @@
 `uvalib-libraries`
 ui component that represents a library location
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
 <dom-module id="uvalib-libraries">
@@ -187,41 +187,41 @@ ui component that represents a library location
     </template>
 
 
-    <template is="dom-repeat" items="{{data}}" as="library">
-      <uvalib-model-library object="[[library]]"
-          name="{{libName}}" description="{{info}}" donor-name="{{donorName}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
-          rid="{{rid}}" phone="{{phone}}" social-media="{{socialMedia}}" slug="{{slug}}" libcal-id="{{libcalId}}" img-id="{{imgId}}" img-alt="{{imgAlt}}">
+    <template is="dom-repeat" items="{{data}}" as="lib">
+      <uvalib-model-library object="[[lib]]"
+          name="{{lib.scopedLibName}}" description="{{lib.scopedInfo}}" donor-name="{{lib.scopedDonorName}}" donor-bio="{{lib.scopedDonorInfo}}" full-name="{{lib.scopedDonorTitle}}"
+          rid="{{lib.scopedRid}}" phone="{{lib.scopedPhone}}" social-media="{{lib.scopedSocialMedia}}" slug="{{lib.scopedSlug}}" libcal-id="{{lib.scopedLibcalId}}" img-id="{{lib.scopedImgId}}" img-alt="{{lib.scopedImgAlt}}">
       </uvalib-model-library>
-      <uvalib-model-days lid="[[libcalId]]" today="true" data="{{days}}"></uvalib-model-days>
+      <uvalib-model-days lid="[[lib.scopedLibcalId]]" today="true" data="{{lib.scopedDays}}"></uvalib-model-days>
 
-      <section id$="lib[[library.uuid]]" class="library item">
-        <span id$="donor[[library.uuid]]" class="donor-title donor-description">[[donorName]]</span>
-        <template is="dom-if" if="[[donorInfo]]"><paper-tooltip for$="donor[[library.uuid]]" offset="1" position="right"><div inner-h-t-m-l="<h2>[[donorTitle]]</h2>[[donorInfo]]"></div></paper-tooltip></template>
-        <h2 class="library-title item-title">[[libName]]</h2>
+      <section id$="lib[[lib.uuid]]" class="library item">
+        <span id$="donor[[lib.uuid]]" class="donor-title donor-description">[[lib.scopedDonorName]]</span>
+        <template is="dom-if" if="[[lib.scopedDonorInfo]]"><paper-tooltip for$="lib.scopedDonor[[lib.uuid]]" offset="1" position="right"><div inner-h-t-m-l="<h2>[[lib.scopedDonorTitle]]</h2>[[lib.scopedDonorInfo]]"></div></paper-tooltip></template>
+        <h2 class="library-title item-title">[[lib.scopedLibName]]</h2>
         <div class="library-info clearfix">
           <div class="library-description item-description">
-            <div class="library-picture item-picture"><uvalib-image uuid$="[[imgId]]" alt$="[[imgAlt]]"></uvalib-image></div>
-            <p inner-h-t-m-l="[[info]]"></p>
+            <div class="library-picture item-picture"><uvalib-image uuid$="[[lib.scopedImgId]]" alt$="[[lib.scopedImgAlt]]"></uvalib-image></div>
+            <p inner-h-t-m-l="[[lib.scopedInfo]]"></p>
           </div>
-          <a href$="http://www.library.virginia.edu/map/#!/study/[[slug]]" class="library-map item-map">
-            <paper-icon-button icon="globe" alt$="View map for [[libName]]"></paper-icon-button>
+          <a href$="http://www.library.virginia.edu/map/#!/study/[[lib.scopedSlug]]" class="library-map item-map">
+            <paper-icon-button icon="globe" alt$="View map for [[lib.scopedLibName]]"></paper-icon-button>
             <p class="map-description">Map &amp; Directions</p>
           </a>
           <div class="library-vitals item-vitals">
             <div class="vitals-section">
               <h4 class="vital-heading">Hours</h4>
-              <template is="dom-repeat" items="[[days]]" as="today">
+              <template is="dom-repeat" items="[[lib.scopedDays]]" as="today">
                 <span class$="schedule vital [[today.currentStatus]]">[[today.currentStatus]]</span>
                 <span class="schedule vital"><a href="https://www.library.virginia.edu/hours/#[[slug]]">[[today.hours]]</a></span>
               </template>
             </div>
             <div class="vitals-section">
               <h4 class="vital-heading">Contact</h4>
-              <span class="phone vital">Phone:&nbsp;&nbsp;[[phone]]</span>
-              <span class="contact vital">Email:&nbsp;&nbsp;<uvalib-liame rid="[[rid]]"></uvalib-liame></span>
-              <template is="dom-repeat" items="[[socialMedia]]" as="social">
+              <span class="phone vital">Phone:&nbsp;&nbsp;[[lib.scopedPhone]]</span>
+              <span class="contact vital">Email:&nbsp;&nbsp;<uvalib-liame rid="[[lib.scopedRid]]"></uvalib-liame></span>
+              <template is="dom-repeat" items="[[lib.scopedSocialMedia]]" as="social">
                 <span class="contact vital social-link">
-                  <uvalib-social-link href$="[[social.uri]]" alt$="[[libName]] [[social.title]]" style="color: darkblue; height:40px; width:40px"></uvalib-social-link>
+                  <uvalib-social-link href$="[[lib.scopedSocial.uri]]" alt$="[[lib.scopedLibName]] [[lib.scopedSocial.title]]" style="color: darkblue; height:40px; width:40px"></uvalib-social-link>
                 </span>
               </template>
             </div>
