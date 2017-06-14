@@ -190,17 +190,18 @@ ui component that represents a library location
     <template is="dom-repeat" items="{{data}}" as="lib">
       <uvalib-model-library object="[[lib]]"
           name="{{lib.scopedLibName}}" description="{{lib.scopedInfo}}" donor-name="{{lib.scopedDonorName}}" donor-bio="{{lib.scopedDonorInfo}}" full-name="{{lib.scopedDonorTitle}}"
-          rid="{{lib.scopedRid}}" phone="{{lib.scopedPhone}}" social-media="{{lib.scopedSocialMedia}}" slug="{{lib.scopedSlug}}" libcal-id="{{lib.scopedLibcalId}}" img-id="{{lib.scopedImgId}}" img-alt="{{lib.scopedImgAlt}}">
+          rid="{{lib.scopedRid}}" hours-info="{{lib.scopedHoursInfo}}" phone="{{lib.scopedPhone}}" social-media="{{lib.scopedSocialMedia}}" slug="{{lib.scopedSlug}}" libcal-id="{{lib.scopedLibcalId}}" img-id="{{lib.scopedImgId}}" img-alt="{{lib.scopedImgAlt}}">
       </uvalib-model-library>
-      <uvalib-model-days lid="[[lib.scopedLibcalId]]" today="true" data="{{lib.scopedDays}}"></uvalib-model-days>
 
       <section id$="lib[[lib.uuid]]" class="library item">
         <span id$="donor[[lib.uuid]]" class="donor-title donor-description">[[lib.scopedDonorName]]</span>
-        <template is="dom-if" if="[[lib.scopedDonorInfo]]"><paper-tooltip for$="lib.scopedDonor[[lib.uuid]]" offset="1" position="right"><div inner-h-t-m-l="<h2>[[lib.scopedDonorTitle]]</h2>[[lib.scopedDonorInfo]]"></div></paper-tooltip></template>
+        <template is="dom-if" if="[[lib.scopedDonorInfo]]"><paper-tooltip for$="donor[[lib.uuid]]" offset="1" position="right"><div inner-h-t-m-l="<h2>[[lib.scopedDonorTitle]]</h2>[[lib.scopedDonorInfo]]"></div></paper-tooltip></template>
         <h2 class="library-title item-title">[[lib.scopedLibName]]</h2>
         <div class="library-info clearfix">
           <div class="library-description item-description">
-            <div class="library-picture item-picture"><uvalib-image uuid$="[[lib.scopedImgId]]" alt$="[[lib.scopedImgAlt]]"></uvalib-image></div>
+            <template is="dom-if" if="[[lib.scopedImgId]]">
+              <div class="library-picture item-picture"><uvalib-image uuid$="[[lib.scopedImgId]]" alt$="[[lib.scopedImgAlt]]"></uvalib-image></div>
+            </template>
             <p inner-h-t-m-l="[[lib.scopedInfo]]"></p>
           </div>
           <a href$="http://www.library.virginia.edu/map/#!/study/[[lib.scopedSlug]]" class="library-map item-map">
@@ -210,9 +211,15 @@ ui component that represents a library location
           <div class="library-vitals item-vitals">
             <div class="vitals-section">
               <h4 class="vital-heading">Hours</h4>
-              <template is="dom-repeat" items="[[lib.scopedDays]]" as="today">
-                <span class$="schedule vital [[today.currentStatus]]">[[today.currentStatus]]</span>
-                <span class="schedule vital"><a href="https://www.library.virginia.edu/hours/#[[slug]]">[[today.hours]]</a></span>
+              <template is="dom-if" if="[[lib.scopedLibcalId]]" restamp>
+                <uvalib-model-days lid="[[lib.scopedLibcalId]]" today="true" data="{{lib.scopedDays}}"></uvalib-model-days>
+                <template is="dom-repeat" items="[[lib.scopedDays]]" as="today">
+                  <span class$="schedule vital [[today.currentStatus]]">[[today.currentStatus]]</span>
+                  <span class="schedule vital"><a href="https://www.library.virginia.edu/hours/#[[slug]]">[[today.hours]]</a></span>
+                </template>
+              </template>
+              <template is="dom-if" if="[[!lib.scopedLibcalId]]" restamp>
+                <span class="schedule vital"><div inner-h-t-m-l="[[lib.scopedHoursInfo]]"></div></span>
               </template>
             </div>
             <div class="vitals-section">
@@ -221,7 +228,7 @@ ui component that represents a library location
               <span class="contact vital">Email:&nbsp;&nbsp;<uvalib-liame rid="[[lib.scopedRid]]"></uvalib-liame></span>
               <template is="dom-repeat" items="[[lib.scopedSocialMedia]]" as="social">
                 <span class="contact vital social-link">
-                  <uvalib-social-link href$="[[lib.scopedSocial.uri]]" alt$="[[lib.scopedLibName]] [[lib.scopedSocial.title]]" style="color: darkblue; height:40px; width:40px"></uvalib-social-link>
+                  <uvalib-social-link href$="[[social.uri]]" alt$="[[lib.scopedLibName]] [[social.title]]" style="color: darkblue; height:40px; width:40px"></uvalib-social-link>
                 </span>
               </template>
             </div>
@@ -271,7 +278,6 @@ ui component that represents a library location
       observers: [
         '_showLog(data)'
       ],
-
       _showLog: function(data) {
         console.log(data);
       },
@@ -282,6 +288,14 @@ ui component that represents a library location
         } else {
           return 0;
         }
+      },
+
+      _displayHoursInfo: function(libcalId,hoursInfo) {
+        if (libcalId) {
+          return 0;
+        } else if (hoursInfo) {
+          return 1;
+        } else return 0;
       },
 
       _makeFilter: function(uuid,title) {
