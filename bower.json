@@ -6,7 +6,7 @@
     "polymer": "Polymer/polymer#^1.4.0",
     "uvalib-elements": "uvalib-components/uvalib-elements#^0.0.3",
     "uvalib-social-links": "uvalib-components/uvalib-social-links#^0.0.1",
-    "paper-tooltip": "PolymerElements/paper-tooltip#^2.0.0",
+    "paper-tooltip": "PolymerElements/paper-tooltip#^1.0.0",
     "uvalib-images": "uvalib-components/uvalib-images"
   },
   "devDependencies": {
