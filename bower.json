@@ -4,33 +4,5 @@
   "main": "uvalib-libraries.html",
   "dependencies": {
     "uvalib-elements": "uvalib-components/uvalib-elements#master"
-  },
-  "resolutions": {
-    "uvalib-elements": "master",
-    "uvalib-images": "master",
-    "uvalib-alerts": "master",
-    "uvalib-analytics": "master",
-    "uvalib-banner": "master",
-    "uvalib-button": "master",
-    "uvalib-card": "master",
-    "uvalib-logos": "master",
-    "uvalib-helper-libs": "master",
-    "uvalib-hours-card": "master",
-    "uvalib-liame": "master",
-    "uvalib-models": "master",
-    "uvalib-nav": "master",
-    "uvalib-news-section": "master",
-    "uvalib-skip-nav": "master",
-    "uvalib-search-box": "master",
-    "uvalib-theme": "master",
-    "uvalib-social-links": "master",
-    "uvalib-header": "master",
-    "uvalib-footer": "master",
-    "uvalib-events-card": "master",
-    "polymer": "^1.9.0",
-    "app-storage": "^0.10.0",
-    "iron-icons": "^1.2.1",
-    "lodash": "^4.17.4",
-    "uva-footer": "master"
   }
 }
