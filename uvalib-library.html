@@ -1,5 +1,4 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="uvalib-library.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
@@ -12,13 +11,13 @@
 <link rel="import" href="../uvalib-helper-libs/lodash.html">
 
 <!--
-`uvalib-libraries`
-ui component that displays a listing of UVA libraries
+`uvalib-library`
+ui component that represents a library location
 
 @demo demo/index.html
 -->
 
-<dom-module id="uvalib-libraries">
+<dom-module id="uvalib-library">
   <template>
     <style>
       :host {
@@ -178,19 +177,54 @@ ui component that displays a listing of UVA libraries
       }
     </style>
 
-    <template is="dom-if" if="{{uuid}}" restamp>
-      <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"/>
-    </template>
-    <template is="dom-if" if="{{library}}" restamp>
-      <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"/>
-    </template>
-    <template is="dom-if" if="{{_dataPassed(uuid,library)}}" restamp>
-      <uvalib-model-libraries data="{{data}}"/>
-    </template>
+      <uvalib-model-library object="[[object]]"
+          name="{{libName}}" description="{{info}}" donor-name="{{donorName}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
+          rid="{{rid}}" hours-info="{{hoursInfo}}" phone="{{phone}}" social-media="{{socialMedia}}" slug="{{slug}}" libcal-id="{{libcalId}}" img-id="{{imgId}}" img-alt="{{imgAlt}}">
+      </uvalib-model-library>
 
-    <template is="dom-repeat" items="{{data}}" as="lib">
-      <uvalib-library object="[[lib]]"></uvalib-library>
-    </template>
+      <section id$="lib[[object.uuid]]" class="library item">
+        <span id$="donor[[object.uuid]]" class="donor-title donor-description">[[donorName]]</span>
+        <template is="dom-if" if="[[donorInfo]]"><paper-tooltip for$="donor[[object.uuid]]" offset="1" position="right"><div inner-h-t-m-l="<h2>[[donorTitle]]</h2>[[donorInfo]]"></div></paper-tooltip></template>
+        <h2 class="library-title item-title">[[libName]]</h2>
+        <div class="library-info clearfix">
+          <div class="library-description item-description">
+            <template is="dom-if" if="[[imgId]]">
+              <div class="library-picture item-picture"><uvalib-image uuid$="[[imgId]]" alt$="[[imgAlt]]"></uvalib-image></div>
+            </template>
+            <p inner-h-t-m-l="[[info]]"></p>
+          </div>
+          <a href$="http://www.library.virginia.edu/map/#!/study/[[slug]]" class="library-map item-map">
+            <paper-icon-button icon="globe" alt$="View map for [[libName]]"></paper-icon-button>
+            <p class="map-description">Map &amp; Directions</p>
+          </a>
+          <div class="library-vitals item-vitals">
+            <div class="vitals-section">
+              <h4 class="vital-heading">Hours</h4>
+              <template is="dom-if" if="[[libcalId]]" restamp>
+                <uvalib-model-days lid="[[libcalId]]" today="true" data="{{days}}"></uvalib-model-days>
+                <template is="dom-repeat" items="[[days]]" as="today">
+                  <span class$="schedule vital [[today.currentStatus]]">[[today.currentStatus]]</span>
+                  <span class="schedule vital"><a href="https://www.library.virginia.edu/hours/#[[slug]]">[[today.hours]]</a></span>
+                </template>
+              </template>
+              <template is="dom-if" if="[[!libcalId]]" restamp>
+                <span class="schedule vital"><div inner-h-t-m-l="[[hoursInfo]]"></div></span>
+              </template>
+            </div>
+            <div class="vitals-section">
+              <h4 class="vital-heading">Contact</h4>
+              <span class="phone vital">Phone:&nbsp;&nbsp;[[phone]]</span>
+              <span class="contact vital">Email:&nbsp;&nbsp;<uvalib-liame rid="[[rid]]"></uvalib-liame></span>
+              <template is="dom-repeat" items="[[socialMedia]]" as="social">
+                <span class="contact vital social-link">
+                  <uvalib-social-link href$="[[social.uri]]" alt$="[[libName]] [[social.title]]" style="color: darkblue; height:40px; width:40px"></uvalib-social-link>
+                </span>
+              </template>
+            </div>
+          </div>
+        </div>
+      </section>
+
   </template>
 
   <script>
@@ -199,9 +233,16 @@ ui component that displays a listing of UVA libraries
 // ToDo how is the tooltip implemented for the donor information? will that work within this component?
 // ToDo implement icons for map, social media
 // ToDo apply layout CSS to component but not any styling
-      is: 'uvalib-libraries',
+      is: 'uvalib-library',
 
       properties: {
+        /**
+         * The raw object from the data array of uvalib-model-libraries
+         */
+        object: {
+          type: Object,
+          value: null
+        },
         /**
          * The uuid of the Library.  If specified will define which Library is being requested (takes priority over the library property)
          */
@@ -227,6 +268,7 @@ ui component that displays a listing of UVA libraries
           type: Object,
           computed: '_makeFilter(uuid,library)'
         },
+        _scoped: Array
 
       },
 
