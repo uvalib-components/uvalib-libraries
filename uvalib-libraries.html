@@ -21,8 +21,6 @@ ui component that displays a listing of UVA libraries
 
     <app-location path="{{_anchor}}" use-hash-as-path></app-location>
 
-    <h2>Anchor: [[_anchor]]</h2>
-
     <template is="dom-if" if="{{uuid}}" restamp>
       <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"/>
     </template>
@@ -33,9 +31,18 @@ ui component that displays a listing of UVA libraries
       <uvalib-model-libraries data="{{data}}"/>
     </template>
 
-    <template is="dom-repeat" items="{{data}}" as="lib">
-      <a id="[[lib.slug]]"></a>
-      <uvalib-library object="[[lib]]"></uvalib-library>
+    <template is="dom-if" if="[[menu]]" restamp>
+      <ul>
+        <template is="dom-repeat" items="[[data]]" as="lib">
+          <li><a href="#[[lib.slug]]">[[lib.shortTitle]]</a></li>
+        </template>
+      </ul>
+    </template>
+    <template is="dom-if" if="[[!menu]]" restamp>
+      <template is="dom-repeat" items="[[data]]" as="lib">
+          <a id="[[lib.slug]]"></a>
+          <uvalib-library object="[[lib]]"></uvalib-library>
+      </template>
     </template>
   </template>
 
@@ -44,6 +51,13 @@ ui component that displays a listing of UVA libraries
       is: 'uvalib-libraries',
 
       properties: {
+        /**
+         * listing should be a menu of libraries
+         */
+        menu: {
+          type: Boolean,
+          value: false
+        },
         /**
          * The uuid of the Library.  If specified will define which Library is being requested (takes priority over the library property)
          */
@@ -116,7 +130,7 @@ ui component that displays a listing of UVA libraries
       },
 
       _jumpToAnchor: function(){
-        if(this._anchor)
+        if(this._anchor && this.$$('#'+this._anchor))
           this.$$('#'+this._anchor).scrollIntoView();
       }
 

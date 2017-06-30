@@ -28,8 +28,25 @@
       <h3>Basic uvalib-libraries Demo</h3>
       <demo-snippet>
         <template>
-          <uvalib-model-libraries id="list" data="{{libraries}}"></uvalib-model-libraries>
-          <uvalib-libraries id="libraries" data="[[libraries]]" anchors-enabled></uvalib-libraries>
+          <style is="custom-style">
+            #container {
+              @apply(--layout-horizontal);
+            }
+            #menu {
+              @apply(--layout-vertical);
+            }
+            #main {
+              @apply(--layout-vertical);
+            }
+          </style>
+          <div id="container">
+            <div id="menu">
+              <uvalib-libraries id="libraries" menu></uvalib-libraries>
+            </div>
+            <div id="main">
+              <uvalib-libraries id="libraries" anchors-enabled></uvalib-libraries>
+            </div>
+          </div>
         </template>
       </demo-snippet>
     </div>
