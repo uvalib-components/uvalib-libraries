@@ -29,7 +29,7 @@ Custom property | Description | Default
         display: block;
         --uvalib-libraries-line-height: 20px;
         --uvalib-libraries-title-font-size: 2rem;
-        --uvalib-libraries-vitals-font-size: 1rem;
+        --default-vitals-font-size: 1rem;
         --uvalib-libraries-tooltip-font-size: 1em;
         --uvalib-libraries-globecolor: #B3D996;
         --paper-tooltip-background: #FFFFFF;
@@ -150,7 +150,7 @@ Custom property | Description | Default
         background: #e9edf5 none repeat scroll 0 0;
         border-top: 1px solid #cdd1d9;
         clear: both;
-        font-size: var(--uvalib-libraries-vitals-font-size);
+        font-size: var(--uvalib-libraries-vitals-font-size,var(--default-vitals-font-size));
         margin: 1em 0 0;
         padding: 0.67em 1em;
       }
