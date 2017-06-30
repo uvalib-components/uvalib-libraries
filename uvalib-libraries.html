@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../app-route/app-location.html">
 <link rel="import" href="uvalib-library.html">
 <link rel="import" href="../uvalib-models/uvalib-model-libraries.html">
 
@@ -17,6 +18,10 @@ ui component that displays a listing of UVA libraries
       }
     </style>
 
+    <app-location path="{{_anchor}}" use-hash-as-path></app-location>
+
+    <h2>Anchor: [[_anchor]]</h2>
+
     <template is="dom-if" if="{{uuid}}" restamp>
       <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"/>
     </template>
@@ -28,6 +33,7 @@ ui component that displays a listing of UVA libraries
     </template>
 
     <template is="dom-repeat" items="{{data}}" as="lib">
+      <a id="[[lib.slug]]"></a>
       <uvalib-library object="[[lib]]"></uvalib-library>
     </template>
   </template>
@@ -57,12 +63,32 @@ ui component that displays a listing of UVA libraries
         data: {
           value: null,
           type: Array,
+          observer: "_dataChanged"
         },
         _filter: {
           type: Object,
           computed: '_makeFilter(uuid,library)'
         },
+        /**
+         * Anchors will scroll into view if true
+         */
+        anchorsEnabled: {
+          type: Boolean,
+          value: false
+        },
+        _anchor: {
+          type: String,
+          observer: '_anchorChanged'
+        }
 
+      },
+
+      _dataChanged: function(){
+        if( this.anchorsEnabled ) {
+          this.debounce('datachange',function(){
+            this._jumpToAnchor();
+          },500);
+        }
       },
 
       _dataPassed: function(uuid,library) {
@@ -79,6 +105,17 @@ ui component that displays a listing of UVA libraries
         } else if (title) {
           return {title: title};
         } else return {};
+      },
+
+      _anchorChanged: function(){
+        if( this.anchorsEnabled ) {
+          console.log('anchor changed to '+this._anchor);
+          this._jumpToAnchor();
+        }
+      },
+
+      _jumpToAnchor: function(){
+        this.$$('#'+this._anchor).scrollIntoView();
       }
 
     });
