@@ -91,6 +91,13 @@ ui component that displays a listing of UVA libraries
           type: Boolean,
           value: false
         },
+        /**
+         * If anchorsEnabled is true, sets an offset from the top when scrolled.
+         */
+        scrollOffset: {
+          type: Number,
+          value: 0
+        },
         _anchor: {
           type: String,
           observer: '_anchorChanged'
@@ -130,8 +137,15 @@ ui component that displays a listing of UVA libraries
       },
 
       _jumpToAnchor: function(){
-        if(this._anchor && this.$$('#'+this._anchor))
-          this.$$('#'+this._anchor).scrollIntoView();
+        if(this._anchor && this.$$('#'+this._anchor)) {
+          this.$$('#'+this._anchor).scrollIntoView(true);
+          if (this.scrollOffset > 0) {
+            var scrolledY = window.scrollY;
+            if(scrolledY){
+              window.scroll(0, scrolledY - this.scrollOffset);
+            }
+          }
+        }
       }
 
     });
