@@ -8,6 +8,7 @@
 ui component that displays a listing of UVA libraries
 
 @demo demo/index.html
+@demo demo/listing.html
 -->
 
 <dom-module id="uvalib-libraries">
@@ -115,7 +116,8 @@ ui component that displays a listing of UVA libraries
       },
 
       _jumpToAnchor: function(){
-        this.$$('#'+this._anchor).scrollIntoView();
+        if(this._anchor)
+          this.$$('#'+this._anchor).scrollIntoView();
       }
 
     });
