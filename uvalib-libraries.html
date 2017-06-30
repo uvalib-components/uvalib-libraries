@@ -7,6 +7,11 @@
 `uvalib-libraries`
 ui component that displays a listing of UVA libraries
 
+Custom property | Description | Default
+----------------|-------------|----------
+`--uvalib-libraries-list` | Mixin applied to the Library list | `{}`
+`--uvalib-libraries-list-item` | Mixin applied to the Library list items | `{}`
+
 @demo demo/index.html
 @demo demo/listing.html
 -->
@@ -16,6 +21,12 @@ ui component that displays a listing of UVA libraries
     <style>
       :host {
         display: block;
+      }
+      ul {
+        @apply --uvalib-libraries-list;
+      }
+      li {
+        @apply --uvalib-libraries-list-item;
       }
     </style>
 
