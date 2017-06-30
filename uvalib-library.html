@@ -230,7 +230,7 @@ Custom property | Description | Default
               <span class="phone vital" hidden$="[[!phone]]">Phone:&nbsp;&nbsp;[[phone]]</span>
               <span class="contact vital" hidden$="[[!rid]]">Email:&nbsp;&nbsp;<uvalib-liame rid="[[rid]]"></uvalib-liame></span>
               <template is="dom-repeat" items="[[socialMedia]]" as="social">
-                <span class="contact vital social-link">
+                <span class="contact vital">
                   <uvalib-social-link href$="[[social.uri]]" alt$="[[libName]] [[social.title]]" style="color: darkblue; height:40px; width:40px"></uvalib-social-link>
                 </span>
               </template>
