@@ -30,15 +30,15 @@ Custom property | Description | Default
       }
     </style>
 
-    <app-location path="{{_anchor}}" use-hash-as-path></app-location>
+    <app-location path="[[_anchor]]" use-hash-as-path></app-location>
 
-    <template is="dom-if" if="{{uuid}}" restamp>
-      <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"></uvalib-model-libraries>
+    <template is="dom-if" if="[[uuid]]" restamp>
+      <uvalib-model-libraries data="{{data}}" filter="[[_filter]]"></uvalib-model-libraries>
     </template>
-    <template is="dom-if" if="{{library}}" restamp>
-      <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"></uvalib-model-libraries>
+    <template is="dom-if" if="[[library]]" restamp>
+      <uvalib-model-libraries data="{{data}}" filter="[[_filter]]"></uvalib-model-libraries>
     </template>
-    <template is="dom-if" if="{{_dataPassed(uuid,library)}}" restamp>
+    <template is="dom-if" if="[[_dataPassed(uuid,library)]]" restamp>
       <uvalib-model-libraries data="{{data}}"></uvalib-model-libraries>
     </template>
 
