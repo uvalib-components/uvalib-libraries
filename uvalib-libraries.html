@@ -18,7 +18,7 @@ Custom property | Description | Default
 
 <dom-module id="uvalib-libraries">
   <template>
-    <style>
+    <style is="custom-style">
       :host {
         display: block;
       }
@@ -33,13 +33,13 @@ Custom property | Description | Default
     <app-location path="{{_anchor}}" use-hash-as-path></app-location>
 
     <template is="dom-if" if="{{uuid}}" restamp>
-      <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"/>
+      <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"></uvalib-model-libraries>
     </template>
     <template is="dom-if" if="{{library}}" restamp>
-      <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"/>
+      <uvalib-model-libraries data="{{data}}" filter="{{_filter}}"></uvalib-model-libraries>
     </template>
     <template is="dom-if" if="{{_dataPassed(uuid,library)}}" restamp>
-      <uvalib-model-libraries data="{{data}}"/>
+      <uvalib-model-libraries data="{{data}}"></uvalib-model-libraries>
     </template>
 
     <template is="dom-if" if="[[menu]]" restamp>
