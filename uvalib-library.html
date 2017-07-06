@@ -230,7 +230,7 @@ Custom property | Description | Default
             </div>
             <div class="vitals-section">
               <h4 class="vital-heading">Contact</h4>
-              <span class="phone vital" hidden$="[[!phone]]">Phone:&nbsp;&nbsp;[[phone]]</span>
+              <span class="phone vital" hidden$="[[!phone]]">Phone:&nbsp;&nbsp;<a href="tel:[[phone]]">[[phone]]</a></span>
               <span class="contact vital" hidden$="[[!rid]]">Email:&nbsp;&nbsp;<uvalib-liame rid="[[rid]]"></uvalib-liame></span>
               <template is="dom-repeat" items="[[socialMedia]]" as="social">
                 <span class="contact vital">
