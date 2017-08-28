@@ -101,6 +101,8 @@ Custom property | Description | Default
         margin-right: 1.33em;
       }
       .library-picture uvalib-image {
+        height: 120px;
+        width: 120px;
         background: #fff none repeat scroll 0 0;
         border: 1px solid #bbb;
         border-radius: 3px;
@@ -207,7 +209,7 @@ Custom property | Description | Default
         <div class="library-info clearfix">
           <div class="library-description item-description">
             <template is="dom-if" if="[[imgId]]">
-              <div class="library-picture"><uvalib-image uuid$="[[imgId]]" alt$="[[imgAlt]]"></uvalib-image></div>
+              <div class="library-picture"><uvalib-image uuid$="[[imgId]]" alt$="[[imgAlt]]" sizing="cover"></uvalib-image></div>
             </template>
             <p inner-h-t-m-l="[[info]]"></p>
           </div>
